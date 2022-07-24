@@ -3,8 +3,6 @@ import { runExternalFormatter } from './formatter';
 
 
 export function activate(context: vscode.ExtensionContext) {
-	console.log('Congratulations, your extension "qml-format" is now active!');
-
 	let disposable = vscode.languages.registerDocumentFormattingEditProvider('qml', {
 
 		async provideDocumentFormattingEdits(document: vscode.TextDocument): Promise<vscode.TextEdit[]> {
