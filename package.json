@@ -2,12 +2,17 @@
 	"name": "qml-format",
 	"displayName": "qml-format",
 	"description": "An extension to beautify Qt QML files",
-	"version": "0.0.1",
+	"publisher": "Delgan",
+	"repository": {
+		"url": "https://github.com/Delgan/qml-format",
+		"type": "git"
+	},
+	"version": "0.1.0",
 	"engines": {
 		"vscode": "^1.69.0"
 	},
 	"categories": [
-		"Other"
+		"Formatters"
 	],
 	"activationEvents": [
 		"onLanguage:qml"
