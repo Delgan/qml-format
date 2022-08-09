@@ -20,6 +20,7 @@ RUN apt-get -y update \
         xz-utils=5.2.4-1ubuntu1.1 \
         libasound2=1.2.2-2.1ubuntu2.5 \
         libnss3=2:3.49.1-1ubuntu1.8 \
+        xvfb=2:1.20.13-1ubuntu1~20.04.3 \
         python3-pip=20.0.2-5ubuntu1.6 \
         shellcheck=0.7.0-2build2 \
         qt515tools=5.15.2-1basyskom1 \
