@@ -4,12 +4,13 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get -y update \
     && apt-get install -y --no-install-recommends software-properties-common=0.99.9.8 \
+    && add-apt-repository -y ppa:git-core/ppa \
     && add-apt-repository -y ppa:beineri/opt-qt-5.15.2-focal \
     && apt-get -y update \
     && apt-get install -y --no-install-recommends \
         sudo=1.8.31-1ubuntu1.2 \
         apt-utils=2.0.9 \
-        git=1:2.25.1-1ubuntu3.5 \
+        git=1:2.37.1-0ppa1~ubuntu20.04.1 \
         wget=1.20.3-1ubuntu2 \
         xz-utils=5.2.4-1ubuntu1.1 \
         libasound2=1.2.2-2.1ubuntu2.5 \
@@ -28,7 +29,7 @@ RUN FILENAME="node-v16.16.0-linux-x64.tar.xz" \
     && tar -C /usr/local --strip-components 1 -xJf "/opt/$FILENAME" \
     && rm "/opt/$FILENAME"
 
-RUN npm install -g \
+RUN npm install --location=global \
         npm@8.16.0
 
 ENV QT_BASE_DIR=/opt/qt515

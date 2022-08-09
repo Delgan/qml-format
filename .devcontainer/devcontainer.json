@@ -5,7 +5,10 @@
         "vscode": {
             "extensions": [
                 "dbaeumer.vscode-eslint"
-            ]
+            ],
+            "settings": {
+                "files.insertFinalNewline": true
+            }
         }
     },
     "mounts": [

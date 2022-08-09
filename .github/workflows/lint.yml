@@ -2,14 +2,21 @@ name: Lint
 
 on:
   push:
+  pull_request:
 
 jobs:
   lint:
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/delgan/qml-format:main
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+    - name: Set ownership
+      run: |
+        # Workaround for https://github.com/actions/runner/issues/2033
+        chown -R $(id -u):$(id -g) $PWD
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
