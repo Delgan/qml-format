@@ -1,0 +1,16 @@
+{
+    "name": "Node.js & TypeScript",
+    "dockerFile": "../dockerfiles/dev/Dockerfile",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "dbaeumer.vscode-eslint"
+            ]
+        }
+    },
+    "mounts": [
+        "source=qml-format-bash-history,target=/bash-history,type=volume"
+    ],
+    "postCreateCommand": "bash .devcontainer/post-create-command.sh",
+    "remoteUser": "dev"
+}

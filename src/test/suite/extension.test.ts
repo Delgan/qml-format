@@ -2,15 +2,20 @@ import * as assert from 'assert';
 import * as fs from 'fs';
 import * as mocha from 'mocha';
 import * as path from 'path';
+import * as os from 'os';
 
 import { runExternalFormatter } from '../../formatter';
 
 suite('QmlFormat Extension Test Suite', () => {
 
-    var tempDir: string;
+    const tempDir: string = path.join(os.tmpdir(), "qml-format-tests");
 
     mocha.beforeEach(() => {
-        tempDir = fs.mkdtempSync("qml-format-tests-");
+        fs.mkdirSync(tempDir);
+    });
+
+    mocha.afterEach(() => {
+        fs.rmSync(tempDir, { recursive: true, force: true });
     });
 
     test('Format file successfully', () => {
@@ -37,9 +42,4 @@ suite('QmlFormat Extension Test Suite', () => {
 
         assert.rejects(runExternalFormatter(command, args, fileContent, filePath));
     });
-
-    mocha.afterEach(() => {
-        fs.rmSync(tempDir, { recursive: true, force: true });
-    });
-
 });
