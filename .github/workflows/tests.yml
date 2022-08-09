@@ -11,9 +11,9 @@ jobs:
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
     strategy:
       fail-fast: false
-      matrix:
-        os: [ubuntu-latest]  # TODO: Enable Windows and MacOS tests
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest  # TODO: Enable Windows and MacOS tests
+    container:
+      image: ghcr.io/delgan/qml-format:main
     steps:
     - name: Checkout
       uses: actions/checkout@v3

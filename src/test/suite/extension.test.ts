@@ -19,16 +19,15 @@ suite('QmlFormat Extension Test Suite', () => {
     });
 
     test('Format file successfully', () => {
-        // TODO: Configure the dev environment so that "qmlformat" command is installed and usable.
-        const command = "cat";
+        const command = "qmlformat";
         const args: string[] = [];
         const filePath = path.join(tempDir, 'test.qml');
-        const fileContent = "Hello world;";
+        const fileContent = "Text {text: 'Hello world' }";
 
         fs.writeFileSync(filePath, fileContent);
 
         return runExternalFormatter(command, args, fileContent, filePath).then(result => {
-            assert.equal(result, fileContent);
+            assert.equal(result, "Text {\n    text: 'Hello world'\n}\n");
         });
     });
 
