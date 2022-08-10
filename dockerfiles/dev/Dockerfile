@@ -48,11 +48,6 @@ RUN FILENAME="node-v16.16.0-linux-x64.tar.xz" \
     && tar -C /usr/local --strip-components 1 -xJf "/opt/$FILENAME" \
     && rm "/opt/$FILENAME"
 
-RUN npm install --location=global \
-        npm@8.16.0 \
-        yo@4.3.0 \
-        generator-code@1.6.14
-
 USER $USERNAME
 
 RUN pip3 install --no-cache-dir \
