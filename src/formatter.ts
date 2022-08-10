@@ -16,22 +16,22 @@ export const runExternalFormatter = async (command: string, args: readonly strin
 
         fs.access(tempFilePath, fs.constants.F_OK, (err) => {
             if (!err) {
-                return reject(`Temporary file already existing and will not be overwritten: '${tempFilePath}'`);
+                return reject(`Formatting of '${fileName}' aborted because file '${tempFilePath}' already exists.`);
             }
             fs.writeFile(tempFilePath, fileContent, async (writeError) => {
                 if (writeError) {
-                    return reject(`Error while creating temporary file '${tempFilePath}': '${writeError.message}'`);
+                    return reject(`Formatting of '${fileName}' aborted because file '${tempFilePath}' could not be created: '${writeError.message}'.`);
                 }
                 child_process.execFile(command, args.concat(tempFilePath), (execError, execStdout, execStderr) => {
                     fs.unlink(tempFilePath, (unlinkError) => {
                         if (execError) {
-                            return reject(`Formatting of '${fileName}' failed (${execError.code}): '${execError.message}'`);
+                            return reject(`Formatting of '${fileName}' failed (${execError.code}): '${execError.message}'.`);
                         }
                         if (execStderr) {
-                            return reject(`Formatting of '${fileName}' proceeded with an error: '${execStderr}'`);
+                            return reject(`Formatting of '${fileName}' proceeded with an error: '${execStderr}'.`);
                         }
                         if (unlinkError) {
-                            return reject(`Error while deleting temporary file '${tempFilePath}': '${unlinkError.message}'`);
+                            return reject(`Formatting of '${fileName}' ended with an error because file '${tempFilePath}' could not be deleted: '${unlinkError.message}'.`);
                         }
                         return resolve(execStdout);
                     });

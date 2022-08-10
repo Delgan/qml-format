@@ -60,6 +60,16 @@ suite('QmlFormat Extension Test Suite', () => {
         });
     });
 
+    test('Error because temporary file not creatable', () => {
+        const command = "this-command-does-not-exist";
+        const args: string[] = [];
+        const filePath = path.join(tempDir, 'this-folder-does-not-exists', 'test.qml');
+        const fileContent = "Hello world;";
+
+        const promise = runExternalFormatter(command, args, fileContent, filePath);
+        return assert.rejects(promise, /^Formatting of 'test\.qml' aborted because file '[^']+' could not be created: '[\s\S]*?'.$/);
+    });
+
     test('Error because command does not exist', () => {
         const command = "this-command-does-not-exist";
         const args: string[] = [];
@@ -69,7 +79,7 @@ suite('QmlFormat Extension Test Suite', () => {
         fs.writeFileSync(filePath, fileContent);
 
         const promise = runExternalFormatter(command, args, fileContent, filePath);
-        return assert.rejects(promise, /^Command to format 'test\.qml' failed \([^)]+\): '[\s\S]*?'$/);
+        return assert.rejects(promise, /^Formatting of 'test\.qml' failed \([^)]+\): '[\s\S]*?'.$/);
     });
 
     test('Error because command failed', () => {
@@ -81,7 +91,7 @@ suite('QmlFormat Extension Test Suite', () => {
         fs.writeFileSync(filePath, fileContent);
 
         const promise = runExternalFormatter(command, args, fileContent, filePath);
-        return assert.rejects(promise, /^Command to format 'test\.qml' failed \([^)]+\): '[\s\S]*?'$/);
+        return assert.rejects(promise, /^Formatting of 'test\.qml' failed \([^)]+\): '[\s\S]*?'.$/);
     });
 
     test('Error outputed by the command', () => {
@@ -93,6 +103,6 @@ suite('QmlFormat Extension Test Suite', () => {
         fs.writeFileSync(filePath, fileContent);
 
         const promise = runExternalFormatter(command, args, fileContent, filePath);
-        return assert.rejects(promise, /^Command to format 'test.qml' proceeded with an error: 'Failure'$/);
+        return assert.rejects(promise, /^Formatting of 'test.qml' proceeded with an error: 'Failure'.$/);
     });
 });
