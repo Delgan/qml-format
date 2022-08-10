@@ -29,9 +29,6 @@ RUN FILENAME="node-v16.16.0-linux-x64.tar.xz" \
     && tar -C /usr/local --strip-components 1 -xJf "/opt/$FILENAME" \
     && rm "/opt/$FILENAME"
 
-RUN npm install --location=global \
-        npm@8.16.0
-
 ENV QT_BASE_DIR=/opt/qt515
 ENV QTDIR=$QT_BASE_DIR
 ENV PATH=$QT_BASE_DIR/bin:$PATH

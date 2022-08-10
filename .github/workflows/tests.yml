@@ -9,20 +9,18 @@ on:
 jobs:
   tests:
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.repository
-    strategy:
-      fail-fast: false
-    runs-on: ubuntu-latest  # TODO: Enable Windows and MacOS tests
+    runs-on: ubuntu-latest
     container:
       image: ghcr.io/delgan/qml-format:main
+      options: --privileged  # Required to use 'xvfb-run' (https://linuxmeerkat.wordpress.com/2014/10/17/running-a-gui-application-in-a-docker-container/)
     steps:
-    - name: Checkout
+    - name: Checkout repository
       uses: actions/checkout@v3
-    - name: Install Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16.x
-    - run: npm install
-    - run: xvfb-run -a npm test
-      if: runner.os == 'Linux'
-    - run: npm test
-      if: runner.os != 'Linux'
+    - name: Set ownership
+      run: |
+        # Workaround for https://github.com/actions/runner/issues/2033
+        chown -R $(id -u):$(id -g) $PWD
+    - name: Install dependencies
+      run: npm install
+    - name: Run tests
+      run: xvfb-run -a npm test
