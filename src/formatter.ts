@@ -1,5 +1,6 @@
 import * as child_process from 'child_process';
 import * as fs from 'fs';
+import * as path from 'path';
 
 /* Execute a command and return the stdout output as a string.
 
@@ -11,6 +12,7 @@ export const runExternalFormatter = async (command: string, args: readonly strin
     return new Promise((resolve, reject) => {
         const randomString = Math.random().toString(36).substring(2, 10);
         const tempFilePath = `${filePath}.formatting-${randomString}.tmp`;
+        const fileName = path.basename(filePath);
 
         fs.access(tempFilePath, fs.constants.F_OK, (err) => {
             if (!err) {
@@ -18,18 +20,18 @@ export const runExternalFormatter = async (command: string, args: readonly strin
             }
             fs.writeFile(tempFilePath, fileContent, async (writeError) => {
                 if (writeError) {
-                    return reject(`Error while creating temporary file '${tempFilePath}': ${writeError.message}`);
+                    return reject(`Error while creating temporary file '${tempFilePath}': '${writeError.message}'`);
                 }
                 child_process.execFile(command, args.concat(tempFilePath), (execError, execStdout, execStderr) => {
                     fs.unlink(tempFilePath, (unlinkError) => {
                         if (execError) {
-                            return reject(`The '${command}' command failed (return code != 0): ${execError.message}`);
+                            return reject(`Formatting of '${fileName}' failed (${execError.code}): '${execError.message}'`);
                         }
                         if (execStderr) {
-                            return reject(`The '${command}' command failed (stderr not empty): ${execStderr}`);
+                            return reject(`Formatting of '${fileName}' proceeded with an error: '${execStderr}'`);
                         }
                         if (unlinkError) {
-                            return reject(`Error while deleting temporary file '${tempFilePath}': ${unlinkError.message}`);
+                            return reject(`Error while deleting temporary file '${tempFilePath}': '${unlinkError.message}'`);
                         }
                         return resolve(execStdout);
                     });
