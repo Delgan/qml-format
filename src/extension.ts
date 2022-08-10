@@ -13,9 +13,9 @@ export function activate(context: vscode.ExtensionContext) {
 			// This is actually the recommended workaround,
 			// see https://github.com/microsoft/vscode/issues/90273
 
-			// TODO: Command and arguments should be configurable.
-			const command = "qmlformat";
-			const args: string[] = [];
+			const config = vscode.workspace.getConfiguration();
+			const command = config.get<string>("qmlFormat.command")!;
+			const args = config.get<string[]>("qmlFormat.extraArguments")!;
 			const fileContent = document.getText();
 			const filePath = document.fileName;
 

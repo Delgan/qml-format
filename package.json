@@ -22,6 +22,24 @@
     ],
     "main": "./out/extension.js",
     "contributes": {
+        "configuration": {
+            "title": "QML Format",
+            "properties": {
+                "qmlFormat.command": {
+                    "type": "string",
+                    "default": "qmlformat",
+                    "description": "Command used to format QML files (an absolute path can be configured)."
+                },
+                "qmlFormat.extraArguments": {
+                    "type": "array",
+                    "default": [],
+                    "description": "Optional additional arguments that will be passed to the command.",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
         "languages": [
             {
                 "id": "qml",
