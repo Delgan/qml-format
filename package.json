@@ -1,6 +1,6 @@
 {
     "name": "qml-format",
-    "displayName": "qml-format",
+    "displayName": "QML Format",
     "description": "An extension to beautify Qt QML files",
     "publisher": "Delgan",
     "repository": {
