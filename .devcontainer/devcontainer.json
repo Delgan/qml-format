@@ -1,5 +1,5 @@
 {
-    "name": "Node.js & TypeScript",
+    "name": "QML Format Dev Environment",
     "dockerFile": "../dockerfiles/dev/Dockerfile",
     "customizations": {
         "vscode": {
