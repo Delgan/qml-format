@@ -12,7 +12,7 @@
 
 This extension calls [`qmlformat`](https://doc-snapshots.qt.io/qt6-dev/qtquick-tools-and-utilities.html#qmlformat) command to automatically format your QML files in accordance with the [QML Coding Conventions](https://doc-snapshots.qt.io/qt6-dev/qml-codingconventions.html).
 
-![Formatting demo](assets/demo.gif)
+[![Formatting demo](assets/demo.gif)](https://raw.githubusercontent.com/Delgan/qml-format/main/assets/demo.gif)
 
 
 ## Requirements
