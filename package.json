@@ -1,8 +1,9 @@
 {
     "name": "qml-format",
     "displayName": "QML Format",
-    "description": "An extension to beautify Qt QML files",
+    "description": "Automatic formatter for QML files.",
     "publisher": "Delgan",
+    "icon": "assets/icon.png",
     "repository": {
         "url": "https://github.com/Delgan/qml-format",
         "type": "git"
@@ -11,6 +12,12 @@
     "engines": {
         "vscode": "^1.49.0"
     },
+    "keywords": [
+        "qml",
+        "format",
+        "formatter",
+        "qt"
+    ],
     "extensionKind": [
         "workspace"
     ],
