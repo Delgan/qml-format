@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.1
+
+- Fix Changelog not updated in Marketplace.
+
 ## 1.0.0
 
 - Add `"qmlFormat.command"` settings to optionally configure `qmlformat` executable path.
