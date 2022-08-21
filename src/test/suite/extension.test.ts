@@ -61,13 +61,25 @@ suite('QmlFormat Extension Test Suite', () => {
     });
 
     test('Error because temporary file not creatable', () => {
-        const command = "this-command-does-not-exist";
+        const command = "qmlformat";
         const args: string[] = [];
         const filePath = path.join(tempDir, 'this-folder-does-not-exists', 'test.qml');
         const fileContent = "Hello world;";
 
         const promise = runExternalFormatter(command, args, fileContent, filePath);
         return assert.rejects(promise, /^Formatting of 'test\.qml' aborted because file '[^']+' could not be created: '[\s\S]*?'.$/);
+    });
+
+    test('Error because invalid qml format', () => {
+        const command = "qmlformat";
+        const args: string[] = [];
+        const filePath = path.join(tempDir, 'test.qml');
+        const fileContent = "Hello world;";
+
+        fs.writeFileSync(filePath, fileContent);
+
+        const promise = runExternalFormatter(command, args, fileContent, filePath);
+        return assert.rejects(promise, /^Formatting of 'test\.qml' failed \([^)]+\): '[\s\S]*?'.$/);
     });
 
     test('Error because command does not exist', () => {
