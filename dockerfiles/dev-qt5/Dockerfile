@@ -14,7 +14,7 @@ RUN apt-get -y update \
     && apt-get install -y --no-install-recommends \
         sudo=1.8.31-1ubuntu1.2 \
         apt-utils=2.0.9 \
-        git=1:2.37.1-0ppa1~ubuntu20.04.1 \
+        git=1:2.37.2-0ppa1~ubuntu20.04.1 \
         wget=1.20.3-1ubuntu2 \
         vim=2:8.1.2269-1ubuntu5.7 \
         ssh=1:8.2p1-4ubuntu0.5 \

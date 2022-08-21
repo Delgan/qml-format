@@ -10,7 +10,7 @@ RUN apt-get -y update \
     && apt-get install -y --no-install-recommends \
         sudo=1.8.31-1ubuntu1.2 \
         apt-utils=2.0.9 \
-        git=1:2.37.1-0ppa1~ubuntu20.04.1 \
+        git=1:2.37.2-0ppa1~ubuntu20.04.1 \
         wget=1.20.3-1ubuntu2 \
         xz-utils=5.2.4-1ubuntu1.1 \
         libasound2=1.2.2-2.1ubuntu2.5 \
