@@ -22,7 +22,7 @@ suite('QmlFormat Extension Test Suite', () => {
         const command = "qmlformat";
         const args: string[] = [];
         const filePath = path.join(tempDir, 'test.qml');
-        const fileContent = "Text {text: 'Hello world' }";
+        const fileContent = "Text {text: 'Hello world' }\n";
 
         fs.writeFileSync(filePath, fileContent);
 
@@ -33,10 +33,10 @@ suite('QmlFormat Extension Test Suite', () => {
     });
 
     test('Format file successfully using absolute path', () => {
-        const command = "/opt/qt515/bin/qmlformat";
+        const command = "/usr/bin/qmlformat";
         const args: string[] = [];
         const filePath = path.join(tempDir, 'test.qml');
-        const fileContent = "Text {text: 'Hello world' }";
+        const fileContent = "Text {text: 'Hello world' }\n";
 
         fs.writeFileSync(filePath, fileContent);
 
@@ -49,6 +49,20 @@ suite('QmlFormat Extension Test Suite', () => {
     test('Format file successfully using optional arguments', () => {
         const command = "qmlformat";
         const args: string[] = ["-n"];
+        const filePath = path.join(tempDir, 'test.qml');
+        const fileContent = "Text {text: 'Hello world' }\n";
+
+        fs.writeFileSync(filePath, fileContent);
+
+        const promise = runExternalFormatter(command, args, fileContent, filePath);
+        return promise.then(result => {
+            assert.equal(result, "Text {\n    text: 'Hello world'\n}\n");
+        });
+    });
+
+    test('Format file with no line ending', () => {
+        const command = "qmlformat";
+        const args: string[] = [];
         const filePath = path.join(tempDir, 'test.qml');
         const fileContent = "Text {text: 'Hello world' }";
 
@@ -85,6 +99,20 @@ suite('QmlFormat Extension Test Suite', () => {
         const promise = runExternalFormatter(command, args, fileContent, filePath);
         return promise.then(result => {
             assert.equal(result, "");
+        });
+    });
+
+    test('Format file but output warning on stderr', () => {
+        const command = "python3";
+        const args: string[] = ["-c", "import sys; print('Warning', file=sys.stderr, end=''); print('Formatted')"];
+        const filePath = path.join(tempDir, 'test.qml');
+        const fileContent = "Hello world;";
+
+        fs.writeFileSync(filePath, fileContent);
+
+        const promise = runExternalFormatter(command, args, fileContent, filePath);
+        return promise.then(result => {
+            assert.equal(result, "Formatted\n");
         });
     });
 
@@ -132,17 +160,5 @@ suite('QmlFormat Extension Test Suite', () => {
 
         const promise = runExternalFormatter(command, args, fileContent, filePath);
         return assert.rejects(promise, /^Formatting of 'test\.qml' failed \([^)]+\): '[\s\S]*?'.$/);
-    });
-
-    test('Error outputed by the command', () => {
-        const command = "python3";
-        const args: string[] = ["-c", "import sys; print('Failure', file=sys.stderr, end='')"];
-        const filePath = path.join(tempDir, 'test.qml');
-        const fileContent = "Hello world;";
-
-        fs.writeFileSync(filePath, fileContent);
-
-        const promise = runExternalFormatter(command, args, fileContent, filePath);
-        return assert.rejects(promise, /^Formatting of 'test.qml' proceeded with an error: 'Failure'.$/);
     });
 });

@@ -34,9 +34,11 @@ export const runExternalFormatter = async (command: string, args: readonly strin
                         if (execError) {
                             return reject(`Formatting of '${fileName}' failed (${execError.code}): '${execError.message}'.`);
                         }
-                        if (execStderr) {
-                            return reject(`Formatting of '${fileName}' proceeded with an error: '${execStderr}'.`);
-                        }
+                        // For now, we ignore this because the formatter may emit warnings which must not cause a failure.
+                        // It would probably be better to log it somehow.
+                        // if (execStderr) {
+                        //     return reject(`Formatting of '${fileName}' proceeded with an error: '${execStderr}'.`);
+                        // }
                         if (unlinkError) {
                             return reject(`Formatting of '${fileName}' ended with an error because file '${tempFilePath}' could not be deleted: '${unlinkError.message}'.`);
                         }
