@@ -30,10 +30,10 @@ If desired, you can optionally configure some parameters:
 {
     // You can specify the path toward the "qmlformat" executable,
     // if it's not available by default in your PATH.
-    "qmlFormat.command": "/usr/bin/qmlformat",
+    "qmlFormat.command": "/usr/lib/qt6/bin/qmlformat",
 
     // You can specify additional arguments that will be passed
     // to the "qmlformat" command while formatting a file.
-    "qmlFormat.extraArguments": ["--no-sort"]
+    "qmlFormat.extraArguments": ["--normalize"]
 }
 ```
