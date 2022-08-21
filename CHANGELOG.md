@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.2
+
+- Fix formatting error on recent versions of `qmlformat` ([#1](https://github.com/Delgan/qml-format/issues/1)).
+
 ## 1.0.1
 
 - Fix Changelog not updated in Marketplace.

@@ -11,8 +11,9 @@ The result of the formatting command executed on this temporary file will be ret
 export const runExternalFormatter = async (command: string, args: readonly string[], fileContent: string, filePath: string): Promise<string> => {
     return new Promise((resolve, reject) => {
         const randomString = Math.random().toString(36).substring(2, 10);
-        const tempFilePath = `${filePath}.formatting-${randomString}.tmp`;
-        const fileName = path.basename(filePath);
+        const pathObject = path.parse(filePath);
+        const fileName = pathObject.base;
+        const tempFilePath = path.join(pathObject.dir, `${pathObject.name}-tmp-formatting-${randomString}${pathObject.ext}`);
 
         fs.access(tempFilePath, fs.constants.F_OK, (err) => {
             if (!err) {
