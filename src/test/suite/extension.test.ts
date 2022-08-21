@@ -18,7 +18,7 @@ suite('QmlFormat Extension Test Suite', () => {
         fs.rmSync(tempDir, { recursive: true, force: true });
     });
 
-    test('Format file successfully using executable', () => {
+    test('Format file successfully using executable', async () => {
         const command = "qmlformat";
         const args: string[] = [];
         const filePath = path.join(tempDir, 'test.qml');
@@ -27,12 +27,11 @@ suite('QmlFormat Extension Test Suite', () => {
         fs.writeFileSync(filePath, fileContent);
 
         const promise = runExternalFormatter(command, args, fileContent, filePath, "qml");
-        return promise.then(result => {
-            assert.equal(result, "Text {\n    text: 'Hello world'\n}\n");
-        });
+        const result = await promise;
+        assert.equal(result, "Text {\n    text: 'Hello world'\n}\n");
     });
 
-    test('Format file successfully using absolute path', () => {
+    test('Format file successfully using absolute path', async () => {
         const command = "/usr/bin/qmlformat";
         const args: string[] = [];
         const filePath = path.join(tempDir, 'test.qml');
@@ -41,12 +40,11 @@ suite('QmlFormat Extension Test Suite', () => {
         fs.writeFileSync(filePath, fileContent);
 
         const promise = runExternalFormatter(command, args, fileContent, filePath, "qml");
-        return promise.then(result => {
-            assert.equal(result, "Text {\n    text: 'Hello world'\n}\n");
-        });
+        const result = await promise;
+        assert.equal(result, "Text {\n    text: 'Hello world'\n}\n");
     });
 
-    test('Format file successfully using optional arguments', () => {
+    test('Format file successfully using optional arguments', async () => {
         const command = "qmlformat";
         const args: string[] = ["-n"];
         const filePath = path.join(tempDir, 'test.qml');
@@ -55,12 +53,11 @@ suite('QmlFormat Extension Test Suite', () => {
         fs.writeFileSync(filePath, fileContent);
 
         const promise = runExternalFormatter(command, args, fileContent, filePath, "qml");
-        return promise.then(result => {
-            assert.equal(result, "Text {\n    text: 'Hello world'\n}\n");
-        });
+        const result = await promise;
+        assert.equal(result, "Text {\n    text: 'Hello world'\n}\n");
     });
 
-    test('Format file with no line ending', () => {
+    test('Format file with no line ending', async () => {
         const command = "qmlformat";
         const args: string[] = [];
         const filePath = path.join(tempDir, 'test.qml');
@@ -69,12 +66,11 @@ suite('QmlFormat Extension Test Suite', () => {
         fs.writeFileSync(filePath, fileContent);
 
         const promise = runExternalFormatter(command, args, fileContent, filePath, "qml");
-        return promise.then(result => {
-            assert.equal(result, "Text {\n    text: 'Hello world'\n}\n");
-        });
+        const result = await promise;
+        assert.equal(result, "Text {\n    text: 'Hello world'\n}\n");
     });
 
-    test('Format empty file', () => {
+    test('Format empty file', async () => {
         const command = "qmlformat";
         const args: string[] = [];
         const filePath = path.join(tempDir, 'test.qml');
@@ -83,12 +79,11 @@ suite('QmlFormat Extension Test Suite', () => {
         fs.writeFileSync(filePath, fileContent);
 
         const promise = runExternalFormatter(command, args, fileContent, filePath, "qml");
-        return promise.then(result => {
-            assert.equal(result, "");
-        });
+        const result = await promise;
+        assert.equal(result, "");
     });
 
-    test('Format empty file with blank spaces', () => {
+    test('Format empty file with blank spaces', async () => {
         const command = "qmlformat";
         const args: string[] = [];
         const filePath = path.join(tempDir, 'test.qml');
@@ -97,12 +92,11 @@ suite('QmlFormat Extension Test Suite', () => {
         fs.writeFileSync(filePath, fileContent);
 
         const promise = runExternalFormatter(command, args, fileContent, filePath, "qml");
-        return promise.then(result => {
-            assert.equal(result, "");
-        });
+        const result = await promise;
+        assert.equal(result, "");
     });
 
-    test('Format file but output warning on stderr', () => {
+    test('Format file but output warning on stderr', async () => {
         const command = "python3";
         const args: string[] = ["-c", "import sys; print('Warning', file=sys.stderr, end=''); print('Formatted')"];
         const filePath = path.join(tempDir, 'test.qml');
@@ -111,9 +105,8 @@ suite('QmlFormat Extension Test Suite', () => {
         fs.writeFileSync(filePath, fileContent);
 
         const promise = runExternalFormatter(command, args, fileContent, filePath, "qml");
-        return promise.then(result => {
-            assert.equal(result, "Formatted\n");
-        });
+        const result = await promise;
+        assert.equal(result, "Formatted\n");
     });
 
     test('Error because temporary file not creatable', () => {
