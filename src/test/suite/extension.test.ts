@@ -60,6 +60,34 @@ suite('QmlFormat Extension Test Suite', () => {
         });
     });
 
+    test('Format empty file', () => {
+        const command = "qmlformat";
+        const args: string[] = [];
+        const filePath = path.join(tempDir, 'test.qml');
+        const fileContent = "";
+
+        fs.writeFileSync(filePath, fileContent);
+
+        const promise = runExternalFormatter(command, args, fileContent, filePath);
+        return promise.then(result => {
+            assert.equal(result, "");
+        });
+    });
+
+    test('Format empty file with blank spaces', () => {
+        const command = "qmlformat";
+        const args: string[] = [];
+        const filePath = path.join(tempDir, 'test.qml');
+        const fileContent = " \n\t\t\n\n  ";
+
+        fs.writeFileSync(filePath, fileContent);
+
+        const promise = runExternalFormatter(command, args, fileContent, filePath);
+        return promise.then(result => {
+            assert.equal(result, "");
+        });
+    });
+
     test('Error because temporary file not creatable', () => {
         const command = "qmlformat";
         const args: string[] = [];
