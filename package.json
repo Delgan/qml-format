@@ -8,13 +8,15 @@
         "url": "https://github.com/Delgan/qml-format",
         "type": "git"
     },
-    "version": "1.0.1",
+    "version": "1.0.2",
     "engines": {
         "vscode": "^1.49.0"
     },
     "keywords": [
         "qml",
         "format",
+        "qmlformat",
+        "formatting",
         "formatter",
         "qt"
     ],
