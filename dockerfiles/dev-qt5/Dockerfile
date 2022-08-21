@@ -48,6 +48,8 @@ RUN FILENAME="node-v16.16.0-linux-x64.tar.xz" \
     && tar -C /usr/local --strip-components 1 -xJf "/opt/$FILENAME" \
     && rm "/opt/$FILENAME"
 
+RUN ln -s /opt/qt515/bin/qmlformat /usr/bin/qmlformat
+
 USER $USERNAME
 
 RUN pip3 install --no-cache-dir \

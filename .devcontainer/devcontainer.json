@@ -1,6 +1,6 @@
 {
     "name": "QML Format Dev Environment",
-    "dockerFile": "../dockerfiles/dev/Dockerfile",
+    "dockerFile": "../dockerfiles/dev-qt5/Dockerfile",
     "customizations": {
         "vscode": {
             "extensions": [
