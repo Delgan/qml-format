@@ -3,6 +3,7 @@
 ## 1.0.3
 
 - Fix possible warnings outputed by `qmlformat` reported as errors in VS Code.
+- Fix formatting error file file identifed in VSCode as "QML" but without ".qml" extension.
 
 ## 1.0.2
 

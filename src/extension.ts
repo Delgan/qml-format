@@ -19,7 +19,7 @@ export function activate(context: vscode.ExtensionContext) {
 			const fileContent = document.getText();
 			const filePath = document.fileName;
 
-			return runExternalFormatter(command, args, fileContent, filePath).then((formatted) => {
+			return runExternalFormatter(command, args, fileContent, filePath, "qml").then((formatted) => {
 				const lastLineId = document.lineCount - 1;
 				const fullRange = new vscode.Range(0, 0, lastLineId, document.lineAt(lastLineId).text.length);
 				return [vscode.TextEdit.replace(fullRange, formatted)];

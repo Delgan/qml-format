@@ -8,7 +8,7 @@ The command must accepts a file path as its last argument.
 A temporary file containing `fileContent` will be created next to the file `filePath` to be formatted.
 The result of the formatting command executed on this temporary file will be returned.
 */
-export const runExternalFormatter = async (command: string, args: readonly string[], fileContent: string, filePath: string): Promise<string> => {
+export const runExternalFormatter = async (command: string, args: readonly string[], fileContent: string, filePath: string, tmpExtension: string): Promise<string> => {
     return new Promise((resolve, reject) => {
 
         if (!fileContent.trim()) {
@@ -18,7 +18,7 @@ export const runExternalFormatter = async (command: string, args: readonly strin
         const randomString = Math.random().toString(36).substring(2, 10);
         const pathObject = path.parse(filePath);
         const fileName = pathObject.base;
-        const tempFilePath = path.join(pathObject.dir, `${pathObject.name}-tmp-formatting-${randomString}${pathObject.ext}`);
+        const tempFilePath = path.join(pathObject.dir, `${pathObject.name}-${randomString}-formatting-tmp.${tmpExtension}`);
 
 
         fs.access(tempFilePath, fs.constants.F_OK, (err) => {

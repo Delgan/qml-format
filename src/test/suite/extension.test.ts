@@ -26,7 +26,7 @@ suite('QmlFormat Extension Test Suite', () => {
 
         fs.writeFileSync(filePath, fileContent);
 
-        const promise = runExternalFormatter(command, args, fileContent, filePath);
+        const promise = runExternalFormatter(command, args, fileContent, filePath, "qml");
         return promise.then(result => {
             assert.equal(result, "Text {\n    text: 'Hello world'\n}\n");
         });
@@ -40,7 +40,7 @@ suite('QmlFormat Extension Test Suite', () => {
 
         fs.writeFileSync(filePath, fileContent);
 
-        const promise = runExternalFormatter(command, args, fileContent, filePath);
+        const promise = runExternalFormatter(command, args, fileContent, filePath, "qml");
         return promise.then(result => {
             assert.equal(result, "Text {\n    text: 'Hello world'\n}\n");
         });
@@ -54,7 +54,7 @@ suite('QmlFormat Extension Test Suite', () => {
 
         fs.writeFileSync(filePath, fileContent);
 
-        const promise = runExternalFormatter(command, args, fileContent, filePath);
+        const promise = runExternalFormatter(command, args, fileContent, filePath, "qml");
         return promise.then(result => {
             assert.equal(result, "Text {\n    text: 'Hello world'\n}\n");
         });
@@ -68,7 +68,7 @@ suite('QmlFormat Extension Test Suite', () => {
 
         fs.writeFileSync(filePath, fileContent);
 
-        const promise = runExternalFormatter(command, args, fileContent, filePath);
+        const promise = runExternalFormatter(command, args, fileContent, filePath, "qml");
         return promise.then(result => {
             assert.equal(result, "Text {\n    text: 'Hello world'\n}\n");
         });
@@ -82,7 +82,7 @@ suite('QmlFormat Extension Test Suite', () => {
 
         fs.writeFileSync(filePath, fileContent);
 
-        const promise = runExternalFormatter(command, args, fileContent, filePath);
+        const promise = runExternalFormatter(command, args, fileContent, filePath, "qml");
         return promise.then(result => {
             assert.equal(result, "");
         });
@@ -96,7 +96,7 @@ suite('QmlFormat Extension Test Suite', () => {
 
         fs.writeFileSync(filePath, fileContent);
 
-        const promise = runExternalFormatter(command, args, fileContent, filePath);
+        const promise = runExternalFormatter(command, args, fileContent, filePath, "qml");
         return promise.then(result => {
             assert.equal(result, "");
         });
@@ -110,7 +110,7 @@ suite('QmlFormat Extension Test Suite', () => {
 
         fs.writeFileSync(filePath, fileContent);
 
-        const promise = runExternalFormatter(command, args, fileContent, filePath);
+        const promise = runExternalFormatter(command, args, fileContent, filePath, "qml");
         return promise.then(result => {
             assert.equal(result, "Formatted\n");
         });
@@ -122,7 +122,7 @@ suite('QmlFormat Extension Test Suite', () => {
         const filePath = path.join(tempDir, 'this-folder-does-not-exists', 'test.qml');
         const fileContent = "Hello world;";
 
-        const promise = runExternalFormatter(command, args, fileContent, filePath);
+        const promise = runExternalFormatter(command, args, fileContent, filePath, "qml");
         return assert.rejects(promise, /^Formatting of 'test\.qml' aborted because file '[^']+' could not be created: '[\s\S]*?'.$/);
     });
 
@@ -134,7 +134,7 @@ suite('QmlFormat Extension Test Suite', () => {
 
         fs.writeFileSync(filePath, fileContent);
 
-        const promise = runExternalFormatter(command, args, fileContent, filePath);
+        const promise = runExternalFormatter(command, args, fileContent, filePath, "qml");
         return assert.rejects(promise, /^Formatting of 'test\.qml' failed \([^)]+\): '[\s\S]*?'.$/);
     });
 
@@ -146,7 +146,7 @@ suite('QmlFormat Extension Test Suite', () => {
 
         fs.writeFileSync(filePath, fileContent);
 
-        const promise = runExternalFormatter(command, args, fileContent, filePath);
+        const promise = runExternalFormatter(command, args, fileContent, filePath, "qml");
         return assert.rejects(promise, /^Formatting of 'test\.qml' failed \([^)]+\): '[\s\S]*?'.$/);
     });
 
@@ -158,7 +158,7 @@ suite('QmlFormat Extension Test Suite', () => {
 
         fs.writeFileSync(filePath, fileContent);
 
-        const promise = runExternalFormatter(command, args, fileContent, filePath);
+        const promise = runExternalFormatter(command, args, fileContent, filePath, "qml");
         return assert.rejects(promise, /^Formatting of 'test\.qml' failed \([^)]+\): '[\s\S]*?'.$/);
     });
 });
