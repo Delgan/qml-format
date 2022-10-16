@@ -6,26 +6,27 @@ ARG USER_GID=$USER_UID
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+# hadolint ignore=DL3008
 RUN apt-get -y update \
-    && apt-get install -y --no-install-recommends software-properties-common=0.99.9.8 \
+    && apt-get install -y --no-install-recommends software-properties-common \
     && add-apt-repository -y ppa:git-core/ppa \
     && add-apt-repository -y ppa:beineri/opt-qt-5.15.2-focal \
     && apt-get -y update \
     && apt-get install -y --no-install-recommends \
-        sudo=1.8.31-1ubuntu1.2 \
-        apt-utils=2.0.9 \
-        git=1:2.37.2-0ppa1~ubuntu20.04.1 \
-        wget=1.20.3-1ubuntu2 \
-        vim=2:8.1.2269-1ubuntu5.7 \
-        ssh=1:8.2p1-4ubuntu0.5 \
-        xz-utils=5.2.4-1ubuntu1.1 \
-        libasound2=1.2.2-2.1ubuntu2.5 \
-        libnss3=2:3.49.1-1ubuntu1.8 \
-        xvfb=2:1.20.13-1ubuntu1~20.04.3 \
-        python3-pip=20.0.2-5ubuntu1.6 \
-        shellcheck=0.7.0-2build2 \
-        qt515tools=5.15.2-1basyskom1 \
-        bash-completion=1:2.10-1ubuntu1 \
+        sudo \
+        apt-utils \
+        git \
+        wget \
+        vim \
+        ssh \
+        xz-utils \
+        libasound2 \
+        libnss3 \
+        xvfb \
+        python3-pip \
+        shellcheck \
+        qt515tools \
+        bash-completion \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

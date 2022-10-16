@@ -6,25 +6,26 @@ ARG USER_GID=$USER_UID
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+# hadolint ignore=DL3008
 RUN apt-get -y update \
     && apt-get install -y --no-install-recommends \
-        sudo=1.9.9-1ubuntu2 \
-        apt-utils=2.4.7 \
-        git=1:2.34.1-1ubuntu1.4 \
-        wget=1.21.2-2ubuntu1 \
-        vim=2:8.2.3995-1ubuntu2 \
-        ssh=1:8.9p1-3 \
-        xz-utils=5.2.5-2ubuntu1 \
-        libasound2=1.2.6.1-1ubuntu1 \
-        libnss3=2:3.68.2-0ubuntu1.1 \
-        libatk1.0-0=2.36.0-3build1 \
-        libatk-bridge2.0-0=2.38.0-3 \
-        libgtk-3.0=3.24.33-1ubuntu2 \
-        xvfb=2:21.1.3-2ubuntu2.1 \
-        python3-pip=22.0.2+dfsg-1 \
-        shellcheck=0.8.0-2 \
-        qt6-declarative-dev-tools=6.2.4+dfsg-3ubuntu1 \
-        bash-completion=1:2.11-5ubuntu1 \
+        sudo \
+        apt-utils \
+        git \
+        wget \
+        vim \
+        ssh \
+        xz-utils \
+        libasound2 \
+        libnss3 \
+        libatk1.0-0\
+        libatk-bridge2.0-0 \
+        libgtk-3.0 \
+        xvfb \
+        python3-pip \
+        shellcheck \
+        qt6-declarative-dev-tools \
+        bash-completion\
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
