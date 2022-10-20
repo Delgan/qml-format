@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.0.4
+
+- Fix duplicated new lines when using `windows` newline mode ([#2](https://github.com/Delgan/qml-format/issues/2)).
+- Fix error while formatting file bigger than ~1 MB.
+
 ## 1.0.3
 
 - Fix possible warnings outputed by `qmlformat` reported as errors in VS Code.

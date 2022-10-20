@@ -1,8 +1,8 @@
 import * as assert from 'assert';
 import * as fs from 'fs';
 import * as mocha from 'mocha';
-import * as path from 'path';
 import * as os from 'os';
+import * as path from 'path';
 
 import { runExternalFormatter } from '../../formatter';
 
@@ -96,17 +96,31 @@ suite('QmlFormat Extension Test Suite', () => {
         assert.equal(result, "");
     });
 
-    test('Format file but output warning on stderr', async () => {
-        const command = "python3";
-        const args: string[] = ["-c", "import sys; print('Warning', file=sys.stderr, end=''); print('Formatted')"];
+    test('Format very big file', async () => {
+        const command = "qmlformat";
+        const args: string[] = [];
         const filePath = path.join(tempDir, 'test.qml');
-        const fileContent = "Hello world;";
+        const text = ".".repeat(10 * 1024 * 1024);
+        const fileContent = `Text {text: '${text}' }\n`;
 
         fs.writeFileSync(filePath, fileContent);
 
         const promise = runExternalFormatter(command, args, fileContent, filePath, "qml");
         const result = await promise;
-        assert.equal(result, "Formatted\n");
+        assert.equal(result, `Text {\n    text: '${text}'\n}\n`);
+    });
+
+    test('Format file but output data on stderr', async () => {
+        const command = "qmlformat";
+        const args: string[] = ["--verbose"];
+        const filePath = path.join(tempDir, 'test.qml');
+        const fileContent = "Text {text: 'Hello world' }";
+
+        fs.writeFileSync(filePath, fileContent);
+
+        const promise = runExternalFormatter(command, args, fileContent, filePath, "qml");
+        const result = await promise;
+        assert.equal(result, "Text {\n    text: 'Hello world'\n}\n");
     });
 
     test('Error because temporary file not creatable', () => {
