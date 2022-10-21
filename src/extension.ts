@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { runExternalFormatter } from './formatter';
+import { runQmlFormatter } from './formatter';
 
 
 export function activate(context: vscode.ExtensionContext) {
@@ -19,7 +19,7 @@ export function activate(context: vscode.ExtensionContext) {
 			const fileContent = document.getText();
 			const filePath = document.fileName;
 
-			return runExternalFormatter(command, args, fileContent, filePath, "qml").then((formatted) => {
+			return runQmlFormatter(command, args, fileContent, filePath).then((formatted) => {
 				const lastLineId = document.lineCount - 1;
 				const fullRange = new vscode.Range(0, 0, lastLineId, document.lineAt(lastLineId).text.length);
 				return [vscode.TextEdit.replace(fullRange, formatted)];
