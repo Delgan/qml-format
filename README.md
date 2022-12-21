@@ -4,7 +4,7 @@
 
 *A Visual Studio Code extension to beautify Qt QML files.*
 
-[![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/delgan.qml-format)](https://marketplace.visualstudio.com/items?itemName=delgan.qml-format) [![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/Delgan/qml-format/Tests/main)](https://github.com/Delgan/qml-format/actions/workflows/tests.yml?query=branch:main) [![License](https://img.shields.io/github/license/Delgan/qml-format)](https://github.com/Delgan/qml-format/blob/main/LICENSE)
+[![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/delgan.qml-format)](https://marketplace.visualstudio.com/items?itemName=delgan.qml-format) [![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/Delgan/qml-format/tests.yml?branch=main)](https://github.com/Delgan/qml-format/actions/workflows/tests.yml?query=branch:main) [![License](https://img.shields.io/github/license/Delgan/qml-format)](https://github.com/Delgan/qml-format/blob/main/LICENSE)
 
 </div>
 
