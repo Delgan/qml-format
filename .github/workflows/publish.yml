@@ -1,9 +1,13 @@
 name: Publish
 
+# Disabled because not working (need fix, the package was not available).
+# on:
+#   push:
+#     tags:
+#     - '**'
+
+
 on:
-  push:
-    tags:
-    - '**'
 
 jobs:
   build:
