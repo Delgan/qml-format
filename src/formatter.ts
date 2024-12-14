@@ -1,6 +1,7 @@
 import * as child_process from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
+import { LogOutputChannel } from 'vscode';
 
 /**
  * Format a given filecontent using the "qmlformat" command.
@@ -12,9 +13,10 @@ import * as path from 'path';
  * @param args Optional additional command line arguments passed to "qmlformat".
  * @param fileContent The content of the file to be formatted.
  * @param filePath The path of the file to be formatted.
+ * @param logger The logger to use for output.
  * @returns A Promise with the formatted string, or an error message if formatting failed.
  */
-export const runQmlFormatter = async (command: string, args: readonly string[], fileContent: string, filePath: string): Promise<string> => {
+export const runQmlFormatter = async (command: string, args: readonly string[], fileContent: string, filePath: string, logger?: LogOutputChannel): Promise<string> => {
     return new Promise((resolve, reject) => {
 
         if (!fileContent.trim()) {
@@ -39,11 +41,15 @@ export const runQmlFormatter = async (command: string, args: readonly string[], 
                 // We must format the file in-place and not rely on stdout.
                 // For one thing, "\n" outputed by "qmlformat" would be transformed to "\r\n" on Windows, which causes problems with "NewlineType=windows" option.
                 // Secondly, the "execFile" buffer size is limited (~1MB by default), so it's not reliable enough to use it.
-                child_process.execFile(command, ["-i", tempFilePath].concat(args), (execError, _execStdout, _execStderr) => {
+                child_process.execFile(command, ["-i", tempFilePath].concat(args), (execError, execStdout, execStderr) => {
                     fs.readFile(tempFilePath, { "encoding": "utf8" }, (readError, readData) => {
                         fs.unlink(tempFilePath, (unlinkError) => {
-                            // The "execStdout" and "execStderr" are ignored for now (because they should not cause a failure).
-                            // It would probably be better to log them somehow.
+                            if (execStdout) {
+                                logger?.info(`Standard output of the command was not empty:\n${execStdout}`);
+                            }
+                            if (execStderr) {
+                                logger?.info(`Standard error of the command was not empty:\n${execStderr}`);
+                            }
                             if (execError) {
                                 return reject(`Formatting of '${fileName}' failed (${execError.code}): '${execError.message}'.`);
                             }

@@ -3,7 +3,14 @@ import { runQmlFormatter } from './formatter';
 
 
 export function activate(context: vscode.ExtensionContext) {
-	let disposable = vscode.languages.registerDocumentFormattingEditProvider('qml', {
+
+	let logger = vscode.window.createOutputChannel("QML Formatter", { log: true });
+
+	let loggerDisposable = new vscode.Disposable(() => {
+		logger.dispose();
+	});
+
+	let registerDisposable = vscode.languages.registerDocumentFormattingEditProvider('qml', {
 
 		async provideDocumentFormattingEdits(document: vscode.TextDocument): Promise<vscode.TextEdit[]> {
 			// The formatting event is triggered before file is actually saved on disk. Ideally,
@@ -19,16 +26,23 @@ export function activate(context: vscode.ExtensionContext) {
 			const fileContent = document.getText();
 			const filePath = document.fileName;
 
-			return runQmlFormatter(command, args, fileContent, filePath).then((formatted) => {
+			logger.info(`Formatting file: '${filePath}'`);
+
+			return runQmlFormatter(command, args, fileContent, filePath, logger).then((formatted) => {
+				logger.debug("Formatting done.");
 				const lastLineId = document.lineCount - 1;
 				const fullRange = new vscode.Range(0, 0, lastLineId, document.lineAt(lastLineId).text.length);
 				return [vscode.TextEdit.replace(fullRange, formatted)];
 			}, error => {
+				logger.error(error);
 				vscode.window.showErrorMessage(error);
 				return error;
 			});
 		},
 	});
 
-	context.subscriptions.push(disposable);
+	logger.info("QML Formatter activated.");
+
+	context.subscriptions.push(registerDisposable);
+	context.subscriptions.push(loggerDisposable);
 }
