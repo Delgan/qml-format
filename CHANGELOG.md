@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.1.0
+
+- Add new "QML Format" output channel in VS Code to access logs of the extension.
+
 ## 1.0.4
 
 - Fix duplicated new lines when using `windows` newline mode ([#2](https://github.com/Delgan/qml-format/issues/2)).
