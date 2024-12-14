@@ -4,7 +4,7 @@ import { runQmlFormatter } from './formatter';
 
 export function activate(context: vscode.ExtensionContext) {
 
-	let logger = vscode.window.createOutputChannel("QML Formatter", { log: true });
+	let logger = vscode.window.createOutputChannel("QML Format", { log: true });
 
 	let loggerDisposable = new vscode.Disposable(() => {
 		logger.dispose();
@@ -41,7 +41,7 @@ export function activate(context: vscode.ExtensionContext) {
 		},
 	});
 
-	logger.info("QML Formatter activated.");
+	logger.info("QML Format activated.");
 
 	context.subscriptions.push(registerDisposable);
 	context.subscriptions.push(loggerDisposable);
