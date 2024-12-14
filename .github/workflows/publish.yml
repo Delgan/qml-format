@@ -1,13 +1,12 @@
 name: Publish
 
-# Disabled because not working (need fix, the package was not available).
-# on:
-#   push:
-#     tags:
-#     - '**'
-
 
 on:
+  # Disabled for now. It's not working and needs fix (the package was not available).
+  #   push:
+  #     tags:
+  #     - '**'
+  workflow_dispatch:
 
 jobs:
   build:
