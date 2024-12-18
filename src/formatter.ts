@@ -41,7 +41,7 @@ export const runQmlFormatter = async (command: string, args: readonly string[], 
                 // We must format the file in-place and not rely on stdout.
                 // For one thing, "\n" outputed by "qmlformat" would be transformed to "\r\n" on Windows, which causes problems with "NewlineType=windows" option.
                 // Secondly, the "execFile" buffer size is limited (~1MB by default), so it's not reliable enough to use it.
-                child_process.execFile(command, ["-i", tempFilePath].concat(args), (execError, execStdout, execStderr) => {
+                child_process.execFile(command, ["-i", ...args, tempFilePath], (execError, execStdout, execStderr) => {
                     fs.readFile(tempFilePath, { "encoding": "utf8" }, (readError, readData) => {
                         fs.unlink(tempFilePath, (unlinkError) => {
                             if (execStdout) {
